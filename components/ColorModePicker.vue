@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 const colorMode = useColorMode()
 
 const colorModeLabel = computed(() => {
@@ -22,7 +22,7 @@ const changeColorMode = () => {
   <div>
     <ColorScheme tag="span">
       <a @click="changeColorMode()" class="color-mode-container">
-        <font-awesome-icon class="color-mode-icon" icon="fa-regular fa-moon" />
+        <span class="color-mode-icon material-symbols-outlined"> brightness_2 </span>
         <span class="color-mode-text">{{ colorModeLabel }} Mode</span>
       </a>
     </ColorScheme>
@@ -33,16 +33,17 @@ const changeColorMode = () => {
 .color-mode-container {
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 .color-mode-container .color-mode-text {
   font-size: 16px;
-  font-weight: 600px;
+  font-weight: 600;
 }
 .color-mode-container .color-mode-icon {
-  font-size: 18px;
+  font-size: 22px;
   margin-right: 9px;
-  transform: rotate(-20deg);
+  transform: rotate(135deg);
 }
 
 @media only screen and (max-width: 480px) {
