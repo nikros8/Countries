@@ -17,7 +17,7 @@ const country = defineProps({
           <div>
             <h5>Population: {{ " " }}</h5>
             <span>
-              {{ country.population ? formatNumer(country.population) : "" }}
+              {{ country.population ? formatNumber(country.population) : "" }}
             </span>
           </div>
           <div>

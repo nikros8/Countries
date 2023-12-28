@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 const emit = defineEmits(["region-selected"])
 
 const isActive = ref(false)
@@ -12,7 +12,7 @@ const regions = reactive([
   { text: "Oceania", value: "Oceania" },
 ])
 
-const handleRegionSelected = (region) => {
+const handleRegionSelected = (region: { value: string; text: string }) => {
   selectedRegion.value = region.value
   selectedRegion.text = region.text
 
@@ -37,11 +37,7 @@ const handleRegionSelected = (region) => {
       <span class="arrow"></span>
     </button>
     <ul class="select-dropdown" role="listbox" id="select-dropdown">
-      <li
-        v-for="region in regions"
-        @click="handleRegionSelected(region)"
-        role="option"
-      >
+      <li v-for="region in regions" @click="handleRegionSelected(region)" role="option">
         <input
           type="radio"
           :checked="selectedRegion.value == region.value ? true : false"

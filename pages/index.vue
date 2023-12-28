@@ -1,42 +1,29 @@
-<script setup>
-const {
-  data: countriesData,
-  loading,
-  error,
-  refresh,
-} = await useFetch("https://restcountries.com/v3.1/all", {
-  transform: (countriesData) => {
-    return countriesData.map((country) => ({
-      flag: country.flags.svg,
-      name: country.name.common,
-      population: country.population,
-      region: country.region,
-      capital: country.capital,
-    }))
-  },
-  onRequestError({ request, options, error }) {
-    console.log("REGUEST ERRORR " + error)
-  },
-  onResponseError({ request, response, options }) {
-    console.log("RESPONSE ERRORR " + error)
-  },
-})
+<script setup lang="ts">
+const countriesStore = useCountriesStore()
 
+const countries = ref()
+const originalCountries = ref()
+const filteredCountries = ref()
 const searchInput = ref("")
-const originalCountries = ref([])
-const filteredCountries = ref([])
+
 const isSearching = ref(false)
 const isRegionSelected = ref(false)
 const filteredCountriesByRegion = ref([])
-originalCountries.value = countriesData.value
-filteredCountries.value = originalCountries.value
 
-const handleSearch = (searchQuery) => {
+watchEffect(() => {
+  countries.value = countriesStore.countriesData
+  originalCountries.value = countries.value
+  filteredCountries.value = originalCountries.value
+})
+
+// Access store properties or methods
+
+const handleSearch = (searchQuery: string) => {
   searchInput.value = searchQuery
   // Filter countries based on the search query
   if (searchQuery && !isRegionSelected.value) {
-    filteredCountries.value = originalCountries.value.filter((country) =>
-      country.name.toLowerCase().includes(searchQuery.toLowerCase())
+    filteredCountries.value = originalCountries.value.filter((country: Country) =>
+      country.name.common.toLowerCase().includes(searchQuery.toLowerCase())
     )
     isSearching.value = true
     console.log("vyhladavam, select na ALL")
@@ -45,8 +32,8 @@ const handleSearch = (searchQuery) => {
     isSearching.value = false
     console.log("NEvyhladavam, select na ALL")
   } else if (searchQuery && isRegionSelected.value) {
-    filteredCountries.value = filteredCountriesByRegion.value.filter((country) =>
-      country.name.toLowerCase().includes(searchQuery.toLowerCase())
+    filteredCountries.value = filteredCountriesByRegion.value.filter((country: Country) =>
+      country.name.common.toLowerCase().includes(searchQuery.toLowerCase())
     )
     isSearching.value = true
     console.log("vyhladavam, select je CUSTOM")
@@ -57,7 +44,7 @@ const handleSearch = (searchQuery) => {
   }
 }
 
-const handleRegionSelected = (selectedRegion) => {
+const handleRegionSelected = (selectedRegion: { value: string; text: string }) => {
   // Filter countries based on the selected region
   if (selectedRegion.value === "All" && !isSearching.value) {
     filteredCountries.value = originalCountries.value
@@ -66,7 +53,7 @@ const handleRegionSelected = (selectedRegion) => {
     console.log("Select na ALL, NEvyhladavam")
   } else if (selectedRegion.value !== "All" && !isSearching.value) {
     filteredCountries.value = originalCountries.value.filter(
-      (country) => country.region == selectedRegion.value
+      (country: Country) => country.region == selectedRegion.value
     )
     filteredCountriesByRegion.value = filteredCountries.value
     isRegionSelected.value = true
@@ -79,7 +66,7 @@ const handleRegionSelected = (selectedRegion) => {
     console.log("Select na ALL, vyhladavam")
   } else if (selectedRegion.value !== "All" && isSearching.value) {
     filteredCountries.value = originalCountries.value.filter(
-      (country) => country.region == selectedRegion.value
+      (country: Country) => country.region == selectedRegion.value
     )
     filteredCountriesByRegion.value = filteredCountries.value
     isRegionSelected.value = true
@@ -99,9 +86,9 @@ const handleRegionSelected = (selectedRegion) => {
       <div class="countries-list-container">
         <CountryCard
           v-for="country in filteredCountries"
-          :key="country.name"
-          :flag="country.flag"
-          :name="country.name"
+          :key="country.name.common"
+          :flag="country.flags.svg"
+          :name="country.name.common"
           :population="country.population"
           :region="country.region"
           :capital="country.capital"
