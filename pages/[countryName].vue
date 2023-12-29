@@ -1,7 +1,8 @@
 <script setup lang="ts">
 const countries = ref<Country[]>([])
 const getCountryNameByCca3Key = ref<Record<string, string>>({})
-const mainLanguage = ref()
+const mainLanguage = ref<string>("")
+const firstLanguage = ref<string>("")
 const countriesStore = useCountriesStore()
 
 const route = useRoute()
@@ -19,7 +20,9 @@ watchEffect(() => {
   selectedCountry.value =
     countries.value.find((country) => country.name.common === route.params.countryName) || undefined
 
-  mainLanguage.value = Object.keys(selectedCountry.value?.languages || "")[0]
+  mainLanguage.value = Object.keys(selectedCountry.value?.languages || [])[0]
+  firstLanguage.value = Object.keys(selectedCountry.value?.name.nativeName || [])[0]
+  console.log(mainLanguage.value + " hl jazyk")
   console.log("Data is added")
 })
 
@@ -39,6 +42,14 @@ const selectedCountryLanguages = computed(() => {
         .map((key) => languages[key])
         .join(", ")
     : []
+})
+
+const selectedCountryNativeName = computed(() => {
+  return (
+    selectedCountry.value?.name.nativeName[mainLanguage.value]?.common ||
+    selectedCountry.value?.name.nativeName[firstLanguage.value]?.common ||
+    ""
+  )
 })
 // if (!loading && !selectedCountry.value) {
 //   // Country not found, throw a 404 error
@@ -61,40 +72,40 @@ const selectedCountryLanguages = computed(() => {
           <span class="country-name">{{ selectedCountry.name.common }}</span>
           <div class="product-detail-description">
             <div>
-              <div>
+              <div v-if="selectedCountryNativeName">
                 <span class="title">Native Name: </span>
-                <span>{{ selectedCountry.name.nativeName[mainLanguage].common }}</span>
+                <span class="value">{{ selectedCountryNativeName }}</span>
               </div>
               <div>
                 <span class="title">Population: </span>
-                <span>{{ formatNumber(selectedCountry?.population || 0) }}</span>
+                <span class="value">{{ formatNumber(selectedCountry?.population || 0) }}</span>
               </div>
               <div>
                 <span class="title">Region: </span>
-                <span>{{ selectedCountry.region }}</span>
+                <span class="value">{{ selectedCountry.region }}</span>
               </div>
               <div>
                 <span class="title">Sub Region: </span>
-                <span>{{ selectedCountry.subregion }}</span>
+                <span class="value">{{ selectedCountry.subregion }}</span>
               </div>
               <div v-if="selectedCountry.capital">
                 {{ console.log(selectedCountry.capital) }}
                 <span class="title">Capital: </span>
-                <span>{{ selectedCountry.capital[0] }}</span>
+                <span class="value">{{ selectedCountry.capital[0] }}</span>
               </div>
             </div>
-            <div style="margin-left: auto">
+            <div>
               <div v-if="selectedCountry.tld">
                 <span class="title">Top Level Domain: </span>
-                <span>{{ selectedCountry.tld[0] }}</span>
+                <span class="value">{{ selectedCountry.tld[0] }}</span>
               </div>
               <div v-if="selectedCountryCurrencies">
                 <span class="title">Currencies: </span>
-                <span>{{ selectedCountryCurrencies }}</span>
+                <span class="value">{{ selectedCountryCurrencies }}</span>
               </div>
               <div v-if="selectedCountryLanguages">
                 <span class="title">Languages: </span>
-                <span>{{ selectedCountryLanguages }}</span>
+                <span class="value">{{ selectedCountryLanguages }}</span>
               </div>
             </div>
           </div>
@@ -107,7 +118,9 @@ const selectedCountryLanguages = computed(() => {
                 v-for="borderKey in selectedCountry.borders"
                 :key="borderKey"
               >
-                {{ getCountryNameByCca3Key[borderKey] }}
+                <NuxtLink :to="getCountryNameByCca3Key[borderKey]">
+                  {{ getCountryNameByCca3Key[borderKey] }}
+                </NuxtLink>
               </div>
             </div>
           </div>
@@ -130,7 +143,7 @@ img {
 }
 
 .country-flag-image {
-  max-width: 560px;
+  flex: 0 0 560px;
   width: 100%;
   height: auto;
 }
@@ -161,12 +174,20 @@ img {
 .product-detail-description {
   display: flex;
   line-height: 2.1;
-  font-size: 15px;
   margin-top: 25px;
+}
+
+.product-detail-description > div:last-child {
+  margin-left: auto;
 }
 
 .title {
   font-weight: 600;
+  font-size: 15px;
+}
+
+.value {
+  font-weight: 300;
   font-size: 15px;
 }
 
@@ -191,8 +212,6 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: 18px;
-  margin-bottom: 10px;
   height: 28px;
   width: 96px;
   background-color: var(--background-secondary);
@@ -202,5 +221,65 @@ img {
 .wrapper {
   display: flex;
   flex-wrap: wrap;
+  margin-left: 15px;
+  gap: 10px;
+}
+
+@media (max-width: 1220px) {
+  .product-detail-description-container {
+    margin-left: 50px;
+  }
+}
+@media (max-width: 1120px) {
+  .country-flag-image {
+    flex: 0;
+  }
+
+  .country-name {
+    font-size: 43px;
+  }
+  .product-detail-container {
+    flex-direction: column;
+  }
+  .product-detail-description-container {
+    margin-top: 95px;
+    margin-left: 0px;
+  }
+  .product-detail-description {
+    flex-direction: column;
+    line-height: 2.3;
+    margin-top: 33px;
+  }
+
+  .title {
+    font-size: 27px;
+  }
+
+  .value {
+    font-size: 26px;
+  }
+  .product-detail-description > div:last-child {
+    margin-top: 63px;
+    margin-left: 0;
+  }
+  .wrapper {
+    margin-top: 40px;
+    margin-left: 0;
+    gap: 20px;
+  }
+
+  .border-countries-container {
+    flex-direction: column;
+    margin-top: 71px;
+  }
+  .border-countries-container .title {
+    font-size: 31px;
+  }
+
+  .border-country {
+    width: 192px;
+    height: 56px;
+    font-size: 22px;
+  }
 }
 </style>
