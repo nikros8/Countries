@@ -118,7 +118,9 @@ const selectedCountryNativeName = computed(() => {
                 v-for="borderKey in selectedCountry.borders"
                 :key="borderKey"
               >
-                <NuxtLink :to="getCountryNameByCca3Key[borderKey]">
+                <NuxtLink
+                  :to="{ path: '/country', query: { name: getCountryNameByCca3Key[borderKey] } }"
+                >
                   {{ getCountryNameByCca3Key[borderKey] }}
                 </NuxtLink>
               </div>

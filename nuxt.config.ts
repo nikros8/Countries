@@ -7,4 +7,8 @@ export default defineNuxtConfig({
     preference: "system", // default value of $colorMode.preference
     fallback: "light", // fallback value if not system preference found
   },
+  app: {
+    baseURL: "/countries/",
+    buildAssetsDir: "assets", // don't use "_" at the begining of the folder name to avoids nojkill conflict
+  },
 })
