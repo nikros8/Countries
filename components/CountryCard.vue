@@ -8,7 +8,7 @@ const country = defineProps({
 })
 </script>
 <template>
-  <NuxtLink :to="country.name">
+  <NuxtLink :to="{ path: '/country', query: { name: country.name } }">
     <div class="country-card">
       <img :src="country.flag" />
       <div class="country-content-container">

@@ -18,7 +18,7 @@ watchEffect(() => {
   countries.value = countriesStore.countriesData
   getCountryNameByCca3Key.value = countriesStore.getCountryNameByCca3Key
   selectedCountry.value =
-    countries.value.find((country) => country.name.common === route.params.countryName) || undefined
+    countries.value.find((country) => country.name.common === route.query.name) || undefined
 
   mainLanguage.value = Object.keys(selectedCountry.value?.languages || [])[0]
   firstLanguage.value = Object.keys(selectedCountry.value?.name.nativeName || [])[0]
