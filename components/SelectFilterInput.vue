@@ -154,7 +154,7 @@ select {
 
 .select-dropdown li:hover,
 .select-dropdown input:checked ~ label {
-  background-color: #ccc;
+  background-color: var(--hover-background);
 }
 
 .select-dropdown input[type="radio"] {
