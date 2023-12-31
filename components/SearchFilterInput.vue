@@ -51,4 +51,16 @@ input {
   font-size: 19px;
   pointer-events: none;
 }
+
+@media (max-width: 750px) {
+  input {
+    max-width: none;
+  }
+  .search-input-container {
+    height: 96px;
+    flex-basis: auto;
+    margin-right: 0;
+    margin-bottom: 80px;
+  }
+}
 </style>

@@ -31,4 +31,13 @@
     font-size: 14px;
   }
 }
+
+@media (max-width: 750px) {
+  .navigation-bar {
+    height: 160px;
+  }
+  .home-link {
+    font-size: 28px;
+  }
+}
 </style>
