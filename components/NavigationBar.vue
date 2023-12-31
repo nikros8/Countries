@@ -26,18 +26,27 @@
   font-weight: 800;
 }
 
-@media only screen and (max-width: 480px) {
-  .home-link {
-    font-size: 14px;
-  }
-}
-
 @media (max-width: 750px) {
   .navigation-bar {
     height: 160px;
   }
   .home-link {
     font-size: 28px;
+  }
+}
+@media (max-width: 550px) {
+  .home-link {
+    font-size: 25px;
+  }
+}
+@media (max-width: 500px) {
+  .home-link {
+    font-size: 22px;
+  }
+}
+@media (max-width: 480px) {
+  .navigation-bar {
+    height: 100px;
   }
 }
 </style>
