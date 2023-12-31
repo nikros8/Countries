@@ -9,6 +9,7 @@
   --background-primary: hsl(0, 0%, 98%);
   --background-secondary: hsl(0, 0%, 100%);
   --box-shadow-color: #efefef;
+  --hover-background: hsl(0, 0%, 90%);
   --border-radius: 5px;
 }
 
@@ -19,6 +20,7 @@
   --text-color-search-filter-input: #c1cbd4;
   --background-primary: hsl(207, 26%, 17%);
   --background-secondary: hsl(209, 23%, 22%);
+  --hover-background: hsl(207, 16%, 27%);
   --box-shadow-color: #1e2a34;
 }
 
