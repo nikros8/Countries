@@ -8,7 +8,7 @@ const country = defineProps({
 })
 </script>
 <template>
-  <NuxtLink :to="country.name">
+  <NuxtLink :to="country.name" class="wrapper">
     <div class="country-card">
       <img :src="country.flag" />
       <div class="country-content-container">
@@ -75,5 +75,61 @@ const country = defineProps({
 .country-card .country-description-container span {
   color: var(--text-color-country-card-value);
   font-size: 14px;
+}
+
+@media (max-width: 750px) {
+  .wrapper {
+    max-width: 528px;
+    width: 100%;
+    align-self: center;
+  }
+  .country-card {
+    height: 674px;
+    width: 100%;
+  }
+
+  .country-card .country-content-container {
+    margin-top: 53px;
+    margin-left: 47px;
+  }
+  .country-card img {
+    height: auto;
+    width: 100%;
+  }
+  .country-card h3 {
+    font-size: 35px;
+    margin-bottom: 28px;
+  }
+  .country-card .country-description-container {
+    line-height: 1.7;
+  }
+  .country-card .country-description-container h5 {
+    font-size: 27px;
+  }
+  .country-card .country-description-container span {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 550px) {
+  .country-card {
+    height: 570px;
+  }
+}
+@media (max-width: 480px) {
+  .country-card {
+    min-height: 460px;
+    height: 100%;
+  }
+  .country-card .country-content-container {
+    margin-top: 35px;
+    margin-left: 30px;
+  }
+  .country-card .country-description-container {
+    padding-bottom: 40px;
+  }
+  .country-card h3 {
+    margin-bottom: 15px;
+  }
 }
 </style>

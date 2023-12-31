@@ -46,15 +46,20 @@ const changeColorMode = () => {
   transform: rotate(135deg);
 }
 
-@media only screen and (max-width: 480px) {
-  .color-mode-container .color-mode-text {
-    font-size: 12px;
-  }
-}
-
 @media (max-width: 750px) {
   .color-mode-container .color-mode-text {
     font-size: 23px;
+  }
+}
+
+@media (max-width: 550px) {
+  .color-mode-container .color-mode-text {
+    font-size: 20px;
+  }
+}
+@media (max-width: 500px) {
+  .color-mode-container .color-mode-text {
+    font-size: 17px;
   }
 }
 </style>

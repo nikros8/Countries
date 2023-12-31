@@ -54,7 +54,7 @@ select {
   width: 200px;
   text-indent: 23px;
   flex-shrink: 0;
-  color: var(--text-color-search-filter-input);
+  color: var(--text-color-input);
   background-color: var(--background-secondary);
   border: none;
   border-radius: var(--border-radius);
@@ -69,7 +69,7 @@ select {
 }
 
 .custom-select ul {
-  color: var(--text-color-search-filter-input);
+  color: var(--text-color-input);
 }
 
 .select-button {
@@ -79,7 +79,7 @@ select {
   height: 56px;
   width: 100%;
   font-size: 14px;
-  color: var(--text-color-search-filter-input);
+  color: var(--text-color-input);
   background-color: var(--background-secondary);
   border: none;
   border-radius: var(--border-radius);
@@ -95,7 +95,7 @@ select {
   margin-right: 19px;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
-  border-top: 6px solid var(--text-color-search-filter-input);
+  border-top: 6px solid var(--text-color-input);
   transition: transform ease-in-out 0.3s;
 }
 
@@ -105,7 +105,7 @@ select {
 
 .select-dropdown {
   position: absolute;
-  max-height: 164px;
+  max-height: 184px;
   width: 100%;
   margin-top: 4px;
   box-shadow: 0 1px 10px 10px var(--box-shadow-color);
@@ -165,12 +165,41 @@ select {
 }
 
 @media (max-width: 750px) {
+  .custom-select,
+  .select-button {
+    font-size: 23px;
+  }
   select,
   .custom-select {
-    width: 400px;
+    max-width: 400px;
+    width: 100%;
   }
+  .select-dropdown {
+    max-height: 228px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+  .select-dropdown li {
+    padding-left: 35px;
+  }
+
   .select-button {
     height: 96px;
+  }
+  .selected-value {
+    margin-left: 48px;
+  }
+  .arrow {
+    margin-right: 40px;
+    border-left-width: 10px;
+    border-right-width: 10px;
+    border-top-width: 10px;
+  }
+}
+@media (max-width: 480px) {
+  .select-button {
+    height: 70px;
+    font-size: 20px;
   }
 }
 </style>

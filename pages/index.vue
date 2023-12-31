@@ -129,5 +129,21 @@ main {
     margin-top: 48px;
     margin-bottom: 64px;
   }
+  .countries-list-container {
+    flex-flow: column;
+  }
+}
+
+@media (max-width: 750px) {
+  .filters-container {
+    margin-top: 30px;
+    margin-bottom: 40px;
+  }
+}
+
+@media (max-width: 750px) {
+  .countries-list-container {
+    row-gap: 30px;
+  }
 }
 </style>
