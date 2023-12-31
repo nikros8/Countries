@@ -122,4 +122,12 @@ main {
   content: "";
   flex: auto;
 }
+
+@media (max-width: 750px) {
+  .filters-container {
+    flex-direction: column;
+    margin-top: 48px;
+    margin-bottom: 64px;
+  }
+}
 </style>

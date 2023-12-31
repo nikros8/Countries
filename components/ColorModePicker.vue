@@ -51,4 +51,10 @@ const changeColorMode = () => {
     font-size: 12px;
   }
 }
+
+@media (max-width: 750px) {
+  .color-mode-container .color-mode-text {
+    font-size: 23px;
+  }
+}
 </style>

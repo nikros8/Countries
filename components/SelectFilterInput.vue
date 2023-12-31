@@ -163,4 +163,14 @@ select {
   opacity: 0;
   pointer-events: none;
 }
+
+@media (max-width: 750px) {
+  select,
+  .custom-select {
+    width: 400px;
+  }
+  .select-button {
+    height: 96px;
+  }
+}
 </style>
